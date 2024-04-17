@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "85726613827",
+    "firebase_url": "https://sharewheelsdb-default-rtdb.firebaseio.com",
+    "project_id": "sharewheelsdb",
+    "storage_bucket": "sharewheelsdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85726613827:android:e991b4dfd519ceaf3e9ff6",
+        "android_client_info": {
+          "package_name": "edu.uga.cs.sharewheels"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAIQ_DDVyIhcWbmkHXH1bIswf0I_Q26Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
