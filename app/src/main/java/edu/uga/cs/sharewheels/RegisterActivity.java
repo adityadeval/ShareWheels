@@ -2,6 +2,7 @@ package edu.uga.cs.sharewheels;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -51,7 +52,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
         // If Login text view was clicked on by user.
         else if (viewId == R.id.tv_login) {
-            //loginUser();
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
     }
 

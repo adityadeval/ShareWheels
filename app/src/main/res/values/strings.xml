@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ShareWheels</string>
+
+<!--    Strings for register screen-->
     <string name="err_msg_enter_first_name">Please enter your first name.</string>
     <string name="err_msg_enter_last_name">Please enter your last name.</string>
     <string name="err_msg_enter_email">Please enter your email address.</string>
@@ -8,4 +10,14 @@
     <string name="err_msg_password_and_confirm_password_mismatch">Password and confirm password do not match.</string>
     <string name="err_msg_agree_terms_and_condition">Agreeing to the terms and conditions is required for user registration.</string>
     <string name="registration_details_are_valid">"You have been registered successfully!"</string>
+
+<!--    Strings for Login screen-->
+    <string name="title_login">LOGIN</string>
+    <string name="et_hint_email">Please enter your email address</string>
+    <string name="et_hint_password">Password</string>
+    <string name="lbl_forgot_password">Forgot Password?</string>
+    <string name="login_button_label">Login</string>
+    <string name="account_absent">Don\'t have an account?</string>
+    <string name="register"><u>Register</u></string>
+
 </resources>
