@@ -22,6 +22,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private EditText et_confirm_password;
     private Button btn_register;
     private TextView tv_login;
+    private FirebaseAuth m_FBAuth_instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
         btn_register.setOnClickListener(this);
         tv_login.setOnClickListener(this);
+
+        m_FBAuth_instance = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -54,6 +57,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         else if (viewId == R.id.tv_login) {
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -65,13 +69,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             String password = et_password.getText().toString().trim();
 
             // Below function is designed to register a new user inside our Firebase Authentication module.
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            m_FBAuth_instance.createUserWithEmailAndPassword(email, password)
                     // Listener for whether user was registered or not. It returns a task object.
                     .addOnCompleteListener(this, task -> {
                         // User was registered successfully.
                         if (task.isSuccessful()) {
                             FirebaseUser firebaseUser = task.getResult().getUser();
+                            //FirebaseUser firebaseUser = m_FBAuth_instance.getCurrentUser();
                             showCustomSnackBar("User " + firebaseUser.getUid() + " registered successfully!", false);
+
+                            user_registration_successful();
                         }
                         // User couldn't be registered in Firebase Authentication module.
                         else {
@@ -124,6 +131,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
 
         return true; // If all checks passed
+    }
+
+    // Function that decides what happens next once user registration is successful.
+    // This will be called only when user registration is successful.
+    private void user_registration_successful() {
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        startActivity(intent);
+        // Remove the Register Activity from the activity stack.
+        finish();
     }
 
 }

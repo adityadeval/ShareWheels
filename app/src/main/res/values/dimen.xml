@@ -7,6 +7,7 @@
     <dimen name="btn_padding">8dp</dimen>
 
     <dimen name="tv_general_textSize">16sp</dimen>
+    <dimen name="tv_small_textSize">14sp</dimen>
 
     <dimen name="title_textSize">18sp</dimen>
 
