@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
@@ -82,7 +84,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         }
                         // User couldn't be registered in Firebase Authentication module.
                         else {
-                            showCustomSnackBar(task.getException().getMessage(), true);
+
+                            // This exception indicates that the email is already in use.
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                showCustomSnackBar(getResources().getString(R.string.err_msg_email_already_in_use), true);
+                            } else {
+                                showCustomSnackBar(task.getException().getMessage(), true);
+                            }
                         }
                     });
         }
@@ -110,6 +118,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         String email = et_email.getText().toString().trim();
         if (TextUtils.isEmpty(email)) {
             showCustomSnackBar(getResources().getString(R.string.err_msg_enter_email), true);
+            return false;
+        }
+        // Below condition will reject email address which have :
+        // 1) Missing an '@' Symbol, 2) Invalid Characters (!, *, $),
+        // 3) spaces around @, 4) Emails Without a Domain, 5) Multiple '@' Symbols 6) Emails with Missing Top-Level Domain
+        else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            // Check if the email format is valid
+            showCustomSnackBar(getResources().getString(R.string.err_msg_invalid_email), true);
             return false;
         }
 
