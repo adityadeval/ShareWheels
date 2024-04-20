@@ -31,7 +31,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/myaccount_activity_marginTop"
@@ -46,12 +46,12 @@
                 android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_name"
+                android:layout_below="@+id/tv_user_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/myaccount_activity_marginTop"
                 android:textColor="@color/colorSecondaryText"
                 android:textSize="@dimen/tv_medium_textSize"
-                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_user_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="user_name@gmail.com" />
@@ -91,7 +91,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_Logout"
+                android:id="@+id/btn_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Logout"
@@ -105,12 +105,12 @@
                 android:id="@+id/tv_lbl_MyRides"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_Logout"
+                android:layout_below="@+id/btn_logout"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/myaccount_activity_big_marginTop"
                 android:textColor="@color/colorSecondaryText"
                 android:textSize="@dimen/tv_medium_textSize"
-                app:layout_constraintTop_toBottomOf="@id/btn_Logout"
+                app:layout_constraintTop_toBottomOf="@id/btn_logout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="My Rides" />

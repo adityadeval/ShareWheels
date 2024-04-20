@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_settings = findViewById(R.id.btn_settings);
 
         btn_settings.setOnClickListener(this);
+        btn_driver.setOnClickListener(this);
+        btn_rider.setOnClickListener(this);
 
         /*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -53,13 +55,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int viewId = v.getId();
 
         if (viewId == R.id.btn_driver) {
-
-
+            Intent intent = new Intent(MainActivity.this, DriverActivity.class);
+            startActivity(intent);
         }
 
         else if (viewId == R.id.btn_rider) {
-
-
+            Intent intent = new Intent(MainActivity.this, RiderActivity.class);
+            startActivity(intent);
         }
 
         else if (viewId == R.id.btn_settings) {

@@ -15,6 +15,12 @@
         android:theme="@style/Theme.ShareWheels"
         tools:targetApi="31">
         <activity
+            android:name=".DriverActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RiderActivity"
+            android:exported="false" />
+        <activity
             android:name=".MyAccountActivity"
             android:exported="false" />
         <activity
