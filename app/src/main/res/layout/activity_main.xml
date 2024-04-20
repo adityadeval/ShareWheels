@@ -6,16 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You're inside the Main Activity!"
-        android:textColor="@color/red"
-        android:textSize="17sp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_activity_title"
+                android:textColor="@color/red"
+                android:textSize="24sp"
+                android:layout_marginBottom="32dp" />
+
+            <Button
+                android:id="@+id/btn_driver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/driver_button_lbl"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/btn_rider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rider_button_lbl"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/btn_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_button_lbl"
+                android:layout_marginBottom="16dp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

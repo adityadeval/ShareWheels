@@ -1,32 +1,30 @@
 package edu.uga.cs.sharewheels;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-public class MainActivity extends AppCompatActivity {
-
-    public static final String TAG = "ShareWheels";
-    private FirebaseAuth mAuth;
+    public static final String TAG = "MainActivity";
+    private Button btn_driver;
+    private Button btn_rider;
+    private Button btn_settings;
+    //private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btn_driver = findViewById(R.id.btn_driver);
+        btn_rider = findViewById(R.id.btn_rider);
+        btn_settings = findViewById(R.id.btn_settings);
+
+        btn_settings.setOnClickListener(this);
 
         /*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -47,6 +45,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
          */
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        int viewId = v.getId();
+
+        if (viewId == R.id.btn_driver) {
+
+
+        }
+
+        else if (viewId == R.id.btn_rider) {
+
+
+        }
+
+        else if (viewId == R.id.btn_settings) {
+            Intent intent = new Intent(MainActivity.this, MyAccountActivity.class);
+            startActivity(intent);
+        }
 
     }
 }
