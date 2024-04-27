@@ -11,9 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+
+import edu.uga.cs.sharewheels.FirebaseOperationCallback;
+
+import edu.uga.cs.sharewheels.FirebaseOps;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
@@ -25,6 +30,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private Button btn_register;
     private TextView tv_login;
     private FirebaseAuth m_FBAuth_instance;
+    private FirebaseOps m_firebaseops_instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         tv_login.setOnClickListener(this);
 
         m_FBAuth_instance = FirebaseAuth.getInstance();
+        m_firebaseops_instance = new FirebaseOps();
     }
 
     @Override
@@ -64,6 +71,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void registerUser() {
+
         if (validate_Registration_Details()) {
 
             // Fetch email and password entered by user.
@@ -74,13 +82,34 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             m_FBAuth_instance.createUserWithEmailAndPassword(email, password)
                     // Listener for whether user was registered or not. It returns a task object.
                     .addOnCompleteListener(this, task -> {
-                        // User was registered successfully.
-                        if (task.isSuccessful()) {
-                            FirebaseUser firebaseUser = task.getResult().getUser();
-                            //FirebaseUser firebaseUser = m_FBAuth_instance.getCurrentUser();
-                            showCustomSnackBar("User " + firebaseUser.getUid() + " registered successfully!", false);
 
-                            user_registration_successful();
+                        // User was registered successfully in FirebaseAUTH module.
+                        if (task.isSuccessful()) {
+                            //FirebaseUser firebaseUser = task.getResult().getUser();
+
+                            FirebaseUser loggedin_user = m_FBAuth_instance.getCurrentUser();
+                            String user_id = loggedin_user.getUid();
+
+                            String first_name = et_first_name.getText().toString().trim();
+                            String last_name = et_last_name.getText().toString().trim();
+
+                            m_firebaseops_instance.create_user_in_DB(user_id, first_name, last_name, email, password, new FirebaseOperationCallback() {
+                                @Override
+                                public void onSuccess() {
+                                    // At this point user would be registered in FirebaseAuth AND
+                                    // a child node would be created for the user, under "Users" root node.
+                                    showCustomSnackBar("User registered successfully with UserID : !" + user_id, false);
+                                    user_registration_successful();
+                                }
+
+                                @Override
+                                public void onFailure(String errorMessage) {
+                                    // At this point user would be registered in FirebaseAuth
+                                    // BUT there would be some issue while creating a child node inside the "Users" root node.
+                                    showCustomSnackBar("User created in FirebaseAuth, but couldn't be stored in DB !", true);
+                                }
+                            });
+
                         }
                         // User couldn't be registered in Firebase Authentication module.
                         else {
@@ -152,7 +181,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     // Function that decides what happens next once user registration is successful.
     // This will be called only when user registration is successful.
     private void user_registration_successful() {
-        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
         // Remove the Register Activity from the activity stack.
         finish();

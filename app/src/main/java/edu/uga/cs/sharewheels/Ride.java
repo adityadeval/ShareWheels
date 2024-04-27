@@ -1,43 +1,39 @@
 package edu.uga.cs.sharewheels;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Date;
-import java.util.Locale;
 
-public class Rides {
-    private int rideId;
+public class Ride {
+    private String rideId;
     private LocalDate date;
     private String origin;
     private String destination;
     private int rideCost;
-    private String riderName;
-    private String driverName;
+    private String riderID;
+    private String driverID;
     private Boolean riderCompletionFlag;
     private Boolean driverCompletionFlag;
 
     public void Ride() {
     }
 
-    public void Ride(int rideId, LocalDate date, String origin, String destination, int rideCost,
+    public void Ride(String rideId, LocalDate date, String origin, String destination, int rideCost,
                      String riderName, String driverName, Boolean riderCompletionFlag, Boolean driverCompletionFlag) {
         this.rideId = rideId;
         this.date = date;
         this.origin = origin;
         this.destination = destination;
         this.rideCost = rideCost;
-        this.riderName = riderName;
-        this.driverName = driverName;
+        this.riderID = riderName;
+        this.driverID = driverName;
         this.riderCompletionFlag = riderCompletionFlag;
         this.driverCompletionFlag = driverCompletionFlag;
     }
 
-    public int getRideId() {
+    public String getRideId() {
         return rideId;
     }
 
-    public void setRideId(int rideId) {
+    public void setRideId(String rideId) {
         this.rideId = rideId;
     }
 
@@ -74,19 +70,19 @@ public class Rides {
     }
 
     public String getRiderName() {
-        return riderName;
+        return riderID;
     }
 
-    public void setRiderName(String riderName) {
-        this.riderName = riderName;
+    public void setRiderName(String riderID) {
+        this.riderID = riderID;
     }
 
     public String getDriverName() {
-        return driverName;
+        return driverID;
     }
 
     public void setDriverName(String driverName) {
-        this.driverName = driverName;
+        this.driverID = driverID;
     }
 
     public Boolean getRiderCompletionFlag() {

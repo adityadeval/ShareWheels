@@ -19,10 +19,10 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
     // arrayList_ride is going to contain an array of rides that need to be displayed.
     // To be more specific, it'll contain all rides that have a riderID, but not a driverID.
     // It is not dependent on whether we're displaying ride requests or ride offers. This arrayList will simply contain data
-    // from the JSON node "Rides" of our database.
-    private ArrayList<Rides> arrayList_rides;
+    // from the JSON node "Ride" of our database.
+    private ArrayList<Ride> arrayList_rides;
 
-    public AdapterDisplayRides(Context context, ArrayList<Rides> arrayList_rides) {
+    public AdapterDisplayRides(Context context, ArrayList<Ride> arrayList_rides) {
         this.context = context;
         this.arrayList_rides = arrayList_rides;
     }
@@ -39,7 +39,7 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
     // 'position' would also be used by us to fetch data from the arrayList_rides one by one.
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Rides ride = arrayList_rides.get(position);
+        Ride ride = arrayList_rides.get(position);
 
         // The same adapter is going to be used for displaying Ride Requests and Ride Offers.
         // Below line checks if the ViewHolder is of type RideRequestsViewHolder which is specifically used for displaying
