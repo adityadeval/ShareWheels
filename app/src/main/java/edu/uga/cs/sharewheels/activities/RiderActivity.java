@@ -1,7 +1,5 @@
 package edu.uga.cs.sharewheels.activities;
 
-import androidx.appcompat.app.AlertDialog;
-
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,39 +10,36 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import edu.uga.cs.sharewheels.R;
 import edu.uga.cs.sharewheels.firebaseutils.CreateRideInDBCallback;
 import edu.uga.cs.sharewheels.firebaseutils.FirebaseOps;
-import edu.uga.cs.sharewheels.R;
 
 public class RiderActivity extends BaseActivity implements View.OnClickListener{
-    public static final String DEBUG_TAG = "RiderActivity";
     private FloatingActionButton fabNewRideRequest;
     private FirebaseOps m_firebaseops_instance;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rider);
 
         m_firebaseops_instance = new FirebaseOps();
-
         fabNewRideRequest = findViewById(R.id.fabNewRideRequest);
         fabNewRideRequest.setOnClickListener(this);
     }
 
-    public void ride_offer_accepted_succes(){
+    public void ride_offer_accepted_success(){
         showCustomSnackBar("Ride offer accepted successfully!", false);
     }
 
     @Override
     public void onClick(View v) {
-        Log.d( DEBUG_TAG, "Inside onClick" );
-
         // Fetch ID of view which was just clicked on.
         int viewId = v.getId();
 
@@ -53,6 +48,7 @@ public class RiderActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
+
     private void showRideRequestDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -60,12 +56,11 @@ public class RiderActivity extends BaseActivity implements View.OnClickListener{
         builder.setView(dialogView);
 
         final EditText etDate = dialogView.findViewById(R.id.etDate);
-        //EditText etDate = dialogView.findViewById(R.id.etDate);
         EditText etOrigin = dialogView.findViewById(R.id.etOrigin);
         EditText etDestination = dialogView.findViewById(R.id.etDestination);
-        Button btnCreateRideOffer = dialogView.findViewById(R.id.btnCreateRideRequest);
+        Button btnCreateRideRequest = dialogView.findViewById(R.id.btnCreateRideRequest);
 
-        // Below function pops up a Date picker when user clicks on etDate.
+        // Creating Date picker dialog when user clicks on etDate.
         etDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -90,15 +85,13 @@ public class RiderActivity extends BaseActivity implements View.OnClickListener{
 
                     // Prevent further execution of onFocusChange to avoid recursion
                     etDate.setOnFocusChangeListener(null);
-
                 }
             }
         });
 
         final AlertDialog dialog = builder.create();
 
-        btnCreateRideOffer.setOnClickListener(v -> {
-            // Remove empty spaces.
+        btnCreateRideRequest.setOnClickListener(v -> {
             String date = etDate.getText().toString().trim();
             String origin = etOrigin.getText().toString().trim();
             String destination = etDestination.getText().toString().trim();
@@ -123,6 +116,7 @@ public class RiderActivity extends BaseActivity implements View.OnClickListener{
         });
 
         dialog.show();
+
     }
 
     private Boolean validateDialogEntries(String date, String origin, String destination){
