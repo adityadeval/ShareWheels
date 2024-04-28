@@ -55,6 +55,9 @@ public class FirebaseOps {
                 });
     }
 
+    // Below function is used to fetch all details of a user into an object of the User class.
+    // If this function is called by the MyAccountActivity, only then userDataFetchSuccess() would be called, which would
+    // utilize this User object for displaying user's data such as name, email and ride points on the UI screen.
     public void get_user_details(Activity activity){
         // Below line is used for navigating to the exact node.
         users_node_ref.child(getLoggedInUserID())
