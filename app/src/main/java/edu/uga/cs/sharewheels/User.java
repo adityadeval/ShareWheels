@@ -11,6 +11,9 @@ public class User {
     private int ridePointsBalance;
     private List<String> ridesList;
 
+    public User() {
+    }
+
     public User(String userID, String firstName, String lastName, String emailID,
                 String password) {
         this.userID = userID;

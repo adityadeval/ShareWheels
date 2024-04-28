@@ -5,6 +5,8 @@ package edu.uga.cs.sharewheels;
 
 public final class DBConstants {
 
+    public static final String SHARED_PREF_FILE_NAME = "shared_preferences_file";
+
     // Defining names of nodes to be created inside the DB.
     public static final String USERS_NODE_NAME = "users";
     public static final String RIDES_NODE_NAME = "rides";

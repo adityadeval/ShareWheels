@@ -1,11 +1,21 @@
 package edu.uga.cs.sharewheels;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import edu.uga.cs.sharewheels.FirebaseOperationCallback;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class FirebaseOps {
 
@@ -19,7 +29,7 @@ public class FirebaseOps {
     // that modify the database.
     DatabaseReference users_node_ref = DBref.getReference( DBConstants.USERS_NODE_NAME );
 
-    public void create_user_in_DB(String userID, String firstName, String lastName, String emailID, String password, FirebaseOperationCallback callback){
+    public void create_user_in_DB(String userID, String firstName, String lastName, String emailID, String password, CreateUserInDBCallback callback){
 
         User user_obj = new User(userID, firstName, lastName, emailID, password);
 
@@ -45,4 +55,58 @@ public class FirebaseOps {
                 });
     }
 
+    public void get_user_details(Activity activity){
+        // Below line is used for navigating to the exact node.
+        users_node_ref.child(getLoggedInUserID())
+                // Setup a listener that reacts to a single read of the data located at the specified child node.
+                // Once it's triggered the listener is immediately unregistered.
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    // onDataChange() is invoked when data at the specified reference is successfully read.
+                    // The data is returned in a DataSnapshot object.
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+
+                        // getValue() converts the snapshot of the data into an instance of the User class.
+                        User user_obj = snapshot.getValue(User.class);
+
+                        /*
+                        SharedPreferences sharedPreferences =
+                                activity.getSharedPreferences(DBConstants.SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                        editor.putString(DBConstants.USER_ID, user_obj.getUserID());
+                        editor.putString(DBConstants.FIRST_NAME, user_obj.getFirstName());
+                        editor.putString(DBConstants.LAST_NAME, user_obj.getLastName());
+                        editor.putString(DBConstants.EMAIL_ID, user_obj.getEmailID());
+                        editor.putInt(DBConstants.RIDE_POINTS_BALANCE, user_obj.getRidePointsBalance());
+                        editor.apply();
+
+                         */
+
+                        if (activity instanceof MyAccountActivity) {
+                            ((MyAccountActivity) activity).userDataFetchSuccess(user_obj);
+                        }
+                    }
+
+                    // onCancelled is called when the read operation couldn't be completed successfully.
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(activity.getClass().getSimpleName(), "Error while fetching logged in user's details.", error.toException());
+                    }
+        });
+    }
+
+    public String getLoggedInUserID() {
+        // Create an instance of FirebaseAuth's current user.
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        // currentUserID will store the user id of an actual user who's currently logged in.
+        // Note: The id is coming from the 'Authentication' module of Firebase.
+        String currentUserID = "";
+        if (currentUser != null) {
+            currentUserID = currentUser.getUid();
+        }
+
+        return currentUserID;
+    }
 }

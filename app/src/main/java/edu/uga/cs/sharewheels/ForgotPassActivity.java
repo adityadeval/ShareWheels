@@ -2,6 +2,7 @@ package edu.uga.cs.sharewheels;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -63,5 +64,7 @@ public class ForgotPassActivity extends BaseActivity implements View.OnClickList
                     });
         }
     }
+
+
 
 }

@@ -1,7 +1,5 @@
 package edu.uga.cs.sharewheels;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,10 +13,6 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-
-import edu.uga.cs.sharewheels.FirebaseOperationCallback;
-
-import edu.uga.cs.sharewheels.FirebaseOps;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
@@ -93,7 +87,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             String first_name = et_first_name.getText().toString().trim();
                             String last_name = et_last_name.getText().toString().trim();
 
-                            m_firebaseops_instance.create_user_in_DB(user_id, first_name, last_name, email, password, new FirebaseOperationCallback() {
+                            m_firebaseops_instance.create_user_in_DB(user_id, first_name, last_name, email, password, new CreateUserInDBCallback() {
                                 @Override
                                 public void onSuccess() {
                                     // At this point user would be registered in FirebaseAuth AND

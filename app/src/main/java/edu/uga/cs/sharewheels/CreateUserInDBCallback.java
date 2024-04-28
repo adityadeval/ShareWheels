@@ -1,6 +1,6 @@
 package edu.uga.cs.sharewheels;
 
-public interface FirebaseOperationCallback {
+public interface CreateUserInDBCallback {
     void onSuccess();
     void onFailure(String errorMessage);
 }
