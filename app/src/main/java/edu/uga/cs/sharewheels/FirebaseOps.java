@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 public class FirebaseOps {
@@ -28,6 +29,7 @@ public class FirebaseOps {
     // at this reference or at a child of this reference. For eg. After using setValue(), updateChildren(), or similar operations
     // that modify the database.
     DatabaseReference users_node_ref = DBref.getReference( DBConstants.USERS_NODE_NAME );
+    DatabaseReference rides_node_ref = DBref.getReference( DBConstants.RIDES_NODE_NAME );
 
     public void create_user_in_DB(String userID, String firstName, String lastName, String emailID, String password, CreateUserInDBCallback callback){
 
@@ -111,5 +113,56 @@ public class FirebaseOps {
         }
 
         return currentUserID;
+    }
+
+    // Below function is going to creates a ride inside the "Rides" node of the DB.
+    // IMP : This function would create both types of rides : Ride Requests and Ride Offers.
+    // It will recognize what to create based on the Activity who's calling this function.
+    // If called by DriverActivity, it'll create a "Ride Offer".
+    // If called by RiderActivity, it'll create a "Ride Request".
+    // The constructor of Ride class used in each case also plays a major role here.
+    public void createRideInDB(Activity activity, String date, String origin, String destination, CreateRideInDBCallback callback){
+        int rideCost = 50;
+        // push().getKey() generates a unique ID for each new ride, before the ride is actually created.
+        String rideId = rides_node_ref.push().getKey();
+
+        // If current function is being called by the DriverActivity, then set the driverID to current UserID
+        // AND Call the constructor of Ride class which is suitable for creating Ride "Offers"
+        // (It contains rideCost and driverID).
+        if (activity instanceof DriverActivity) {
+            String driverID = getLoggedInUserID();
+            Ride ride_obj = new Ride(rideId, date, origin, destination, rideCost, driverID);
+            Log.d("FirebaseOps.createRideInDB", "Date in Object of Ride Class :" + ride_obj.getDate());
+
+            rides_node_ref.child(rideId).setValue(ride_obj)
+                    .addOnSuccessListener(aVoid -> {
+                        // Notify success callback
+                        callback.onSuccess();
+                    })
+                    .addOnFailureListener(e -> {
+                        // Notify failure callback
+                        callback.onFailure(e.getMessage());
+                    });
+        }
+        // If current function is being called by the RiderActivity, then set the riderID to current UserID
+        // AND Call the constructor of Ride which is suitable for creating Ride "Requests"
+        // (rideCost will be absent here, and it'll contain riderID instead of driverID).
+        else if (activity instanceof RiderActivity) {
+            String riderID = getLoggedInUserID();
+            Ride ride_obj = new Ride(rideId, date, origin, destination, riderID);
+
+            rides_node_ref.child(rideId).setValue(ride_obj)
+                    .addOnSuccessListener(aVoid -> {
+                        // Notify success callback
+                        callback.onSuccess();
+                    })
+                    .addOnFailureListener(e -> {
+                        // Notify failure callback
+                        callback.onFailure(e.getMessage());
+                    });
+        }
+
+
+
     }
 }

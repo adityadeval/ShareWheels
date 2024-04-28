@@ -47,13 +47,14 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
         if (holder instanceof RideRequestsViewHolder) {
             RideRequestsViewHolder rideRequestsViewHolder = (RideRequestsViewHolder) holder;
 
+            /*
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
             String formattedDate = ride.getDate().format(formatter);
-            rideRequestsViewHolder.tv_DateValue.setText(formattedDate);
-
+             */
+            rideRequestsViewHolder.tv_DateValue.setText(ride.getDate());
             rideRequestsViewHolder.tv_OriginValue.setText(ride.getOrigin());
             rideRequestsViewHolder.tv_DestinationValue.setText(ride.getDestination());
-            rideRequestsViewHolder.tv_RideRequestorValue.setText(ride.getRiderName());
+            rideRequestsViewHolder.tv_RideRequestorValue.setText(ride.getRiderID());
 
             rideRequestsViewHolder.button_acceptRideRequest.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,13 +71,14 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
         if(holder instanceof RideOffersViewHolder){
             RideOffersViewHolder rideOffersViewHolder = (RideOffersViewHolder) holder;
 
+            /*
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
             String formattedDate = ride.getDate().format(formatter);
-            rideOffersViewHolder.tv_DateValue_offer.setText(formattedDate);
-
+             */
+            rideOffersViewHolder.tv_DateValue_offer.setText(ride.getDate());
             rideOffersViewHolder.tv_OriginValue_offer.setText(ride.getOrigin());
             rideOffersViewHolder.tv_DestinationValue_offer.setText(ride.getDestination());
-            rideOffersViewHolder.tv_RideOfferorValue.setText(ride.getRiderName());
+            rideOffersViewHolder.tv_RideOfferorValue.setText(ride.getRiderID());
 
             rideOffersViewHolder.button_acceptRideOffer.setOnClickListener(new View.OnClickListener() {
                 @Override
