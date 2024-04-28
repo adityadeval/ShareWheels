@@ -145,6 +145,7 @@ public class FirebaseOps {
                         callback.onFailure(e.getMessage());
                     });
         }
+
         // If current function is being called by the RiderActivity, then set the riderID to current UserID
         // AND Call the constructor of Ride which is suitable for creating Ride "Requests"
         // (rideCost will be absent here, and it'll contain riderID instead of driverID).
