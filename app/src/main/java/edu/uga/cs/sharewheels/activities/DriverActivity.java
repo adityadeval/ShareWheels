@@ -50,6 +50,8 @@ public class DriverActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    // Below function is used to show a dialog that would enable a user to create a ride offer.
+    // It uses the function createRideInDB() of the FirebaseOps for creating a ride offer.
     private void showRideOfferDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -96,21 +98,6 @@ public class DriverActivity extends BaseActivity implements View.OnClickListener
                 }
             }
         });
-
-        /*
-        // Setting up the DatePicker dialog for etDate
-        etDate.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                    (view, year, monthOfYear, dayOfMonth) -> {
-                        // Month is zero based in DatePicker
-                        String formattedDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth).format(DateTimeFormatter.ISO_LOCAL_DATE);
-                        etDate.setText(formattedDate); // Sets the text to the selected date in ISO format
-                    },
-                    LocalDate.now().getYear(), LocalDate.now().getMonthValue() - 1, LocalDate.now().getDayOfMonth());
-            datePickerDialog.show();
-        });
-
-         */
 
         final AlertDialog dialog = builder.create();
 

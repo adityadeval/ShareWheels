@@ -3,15 +3,22 @@ package edu.uga.cs.sharewheels.firebaseutils;
 import android.app.Activity;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import edu.uga.cs.sharewheels.activities.DriverActivity;
 import edu.uga.cs.sharewheels.activities.MyAccountActivity;
@@ -138,7 +145,12 @@ public class FirebaseOps {
             rides_node_ref.child(rideId).setValue(ride_obj)
                     .addOnSuccessListener(aVoid -> {
                         // Notify success callback
-                        callback.onSuccess();
+                        //callback.onSuccess();
+
+                        // Add the rideID to the logged in user's ridesList.
+                        // Here the loggedIn user's ID is same as driverID as the currently loggedIn user is acting
+                        // as driver (Since this function is being called from the DriverActivity).
+                        updateUserRidesList(driverID, rideId, callback);
                     })
                     .addOnFailureListener(e -> {
                         // Notify failure callback
@@ -157,6 +169,11 @@ public class FirebaseOps {
                     .addOnSuccessListener(aVoid -> {
                         // Notify success callback
                         callback.onSuccess();
+
+                        // Add the rideID to the logged in user's ridesList.
+                        // Here the loggedIn user's ID is same as riderID, as the currently loggedIn user is acting
+                        // as rider (Since this function is being called from the RiderActivity).
+                        updateUserRidesList(riderID, rideId, callback);
                     })
                     .addOnFailureListener(e -> {
                         // Notify failure callback
@@ -167,4 +184,56 @@ public class FirebaseOps {
 
 
     }
+
+
+    // Below function is used to add the RideID that the loggedIn user created (it could be a ride offer or request)
+    // into the same user's 'ridesList'. So this would basically enable us to understand all rides the logged in user was
+    // involved in.
+    // We give this function the userID whose ridesList we want to update, and the rideId is the one we want to add into
+    // the user's ridesList.
+    private void updateUserRidesList(String userId, String rideId, CreateRideInDBCallback callback) {
+        // Here currentUserRef would be the child node for currently logged in user, present inside root node "Users".
+        DatabaseReference currentUserRef = users_node_ref.child(userId);
+
+        // Get ref to 'ridesList' list of the user who's logged in.
+        // And then add a listener at this position.
+        currentUserRef.child("ridesList").addListenerForSingleValueEvent(new ValueEventListener() {
+
+            // onDataChange would be called in two cases :
+            // 1) When a listener is attached to a certain location in the DB, it'll be called immediately to retrieve the
+            //    initial data at that location.
+            // 2)  Any subsequent changes to the data at the location to which the listener is attached will also trigger a
+            //     call to onDataChange.
+            // The DataSnapshot contains the data at the specific path you're listening to at the time the event is triggered.
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> ridesList;
+
+                // Below if else will either initialize the local variable ridesList to whatever is present in the logged in user's ridesList
+                // OR If nothing is present, it'll create an empty ArrayList and assign it to local variable ridesList.
+                if (snapshot.exists()) {
+                    ridesList = snapshot.getValue(new GenericTypeIndicator<List<String>>() {});
+                } else {
+                    ridesList = new ArrayList<>();
+                }
+                ridesList.add(rideId);
+
+                // The below Map is used to actually update the values inside our DB.
+                // The Key of the map = Key_name in our DB's child node. Let's call it child_node_key.
+                // Value of the Map = Value that we want to set for the child_node_key.
+                Map<String, Object> updates_hashmap = new HashMap<>();
+                updates_hashmap.put(DBConstants.RIDES_LIST, ridesList);
+
+                currentUserRef.updateChildren(updates_hashmap)
+                        .addOnSuccessListener(aVoid -> callback.onSuccess())
+                        .addOnFailureListener(e -> callback.onFailure(e.getMessage()) );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                callback.onFailure(error.getMessage());
+            }
+        });
+    }
+
 }

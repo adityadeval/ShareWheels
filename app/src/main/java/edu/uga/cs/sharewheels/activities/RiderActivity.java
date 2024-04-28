@@ -48,7 +48,8 @@ public class RiderActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
-
+    // Below function is used to show a dialog that would enable a user to create a ride request.
+    // It uses the function createRideInDB() of the FirebaseOps for creating a ride request.
     private void showRideRequestDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();

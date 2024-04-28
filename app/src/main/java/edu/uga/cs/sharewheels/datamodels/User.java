@@ -9,6 +9,8 @@ public class User {
     private String emailID;
     private String password;
     private int ridePointsBalance;
+
+    // Below List stores all rideIDs the user was involved in.
     private List<String> ridesList;
 
     public User() {

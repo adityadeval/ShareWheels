@@ -19,7 +19,7 @@ public final class DBConstants {
     public static final String EMAIL_ID = "emailID";
     public static final String PASSWORD = "password";
     public static final String RIDE_POINTS_BALANCE = "ridePointsBalance";
-    public static final String RIDES_LIST = "rides_list";
+    public static final String RIDES_LIST = "ridesList";
 
 
     // Keys of RIDES node.
