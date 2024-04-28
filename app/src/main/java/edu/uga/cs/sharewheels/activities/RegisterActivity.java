@@ -1,4 +1,4 @@
-package edu.uga.cs.sharewheels;
+package edu.uga.cs.sharewheels.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,10 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+
+import edu.uga.cs.sharewheels.firebaseutils.CreateUserInDBCallback;
+import edu.uga.cs.sharewheels.firebaseutils.FirebaseOps;
+import edu.uga.cs.sharewheels.R;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 

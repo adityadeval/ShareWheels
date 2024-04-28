@@ -1,4 +1,4 @@
-package edu.uga.cs.sharewheels;
+package edu.uga.cs.sharewheels.datamodels;
 
 import java.time.LocalDate;
 

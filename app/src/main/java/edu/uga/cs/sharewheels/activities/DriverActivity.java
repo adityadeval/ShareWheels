@@ -1,7 +1,6 @@
-package edu.uga.cs.sharewheels;
+package edu.uga.cs.sharewheels.activities;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -17,6 +16,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import edu.uga.cs.sharewheels.firebaseutils.CreateRideInDBCallback;
+import edu.uga.cs.sharewheels.firebaseutils.FirebaseOps;
+import edu.uga.cs.sharewheels.R;
 
 public class DriverActivity extends BaseActivity implements View.OnClickListener{
 

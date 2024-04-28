@@ -1,4 +1,4 @@
-package edu.uga.cs.sharewheels;
+package edu.uga.cs.sharewheels.firebaseutils;
 
 public interface CreateRideInDBCallback {
     void onSuccess();

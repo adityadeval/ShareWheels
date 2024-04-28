@@ -1,11 +1,7 @@
-package edu.uga.cs.sharewheels;
+package edu.uga.cs.sharewheels.firebaseutils;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -15,8 +11,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.time.LocalDate;
 import java.util.Arrays;
+
+import edu.uga.cs.sharewheels.activities.DriverActivity;
+import edu.uga.cs.sharewheels.activities.MyAccountActivity;
+import edu.uga.cs.sharewheels.activities.RiderActivity;
+import edu.uga.cs.sharewheels.datamodels.Ride;
+import edu.uga.cs.sharewheels.datamodels.User;
 
 public class FirebaseOps {
 

@@ -1,6 +1,4 @@
-package edu.uga.cs.sharewheels;
-
-import androidx.appcompat.app.AppCompatActivity;
+package edu.uga.cs.sharewheels.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +7,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import edu.uga.cs.sharewheels.firebaseutils.FirebaseOps;
+import edu.uga.cs.sharewheels.R;
+import edu.uga.cs.sharewheels.datamodels.User;
 
 public class MyAccountActivity extends BaseActivity implements View.OnClickListener {
 

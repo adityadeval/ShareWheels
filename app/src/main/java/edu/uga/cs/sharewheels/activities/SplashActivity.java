@@ -1,10 +1,13 @@
-package edu.uga.cs.sharewheels;
+package edu.uga.cs.sharewheels.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import edu.uga.cs.sharewheels.firebaseutils.FirebaseOps;
+import edu.uga.cs.sharewheels.R;
 
 public class SplashActivity extends AppCompatActivity {
 

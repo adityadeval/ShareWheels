@@ -1,4 +1,4 @@
-package edu.uga.cs.sharewheels;
+package edu.uga.cs.sharewheels.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import edu.uga.cs.sharewheels.R;
+import edu.uga.cs.sharewheels.datamodels.Ride;
 
 
 public class AdapterDisplayRides extends RecyclerView.Adapter{

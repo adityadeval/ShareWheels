@@ -1,16 +1,13 @@
-package edu.uga.cs.sharewheels;
+package edu.uga.cs.sharewheels.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import edu.uga.cs.sharewheels.R;
 
 public class ForgotPassActivity extends BaseActivity implements View.OnClickListener{
 

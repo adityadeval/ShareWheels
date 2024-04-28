@@ -1,8 +1,8 @@
-package edu.uga.cs.sharewheels;
-
-import androidx.appcompat.app.AppCompatActivity;
+package edu.uga.cs.sharewheels.activities;
 
 import android.os.Bundle;
+
+import edu.uga.cs.sharewheels.R;
 
 public class RiderActivity extends BaseActivity {
 

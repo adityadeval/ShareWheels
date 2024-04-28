@@ -1,4 +1,4 @@
-package edu.uga.cs.sharewheels;
+package edu.uga.cs.sharewheels.firebaseutils;
 
 // This class is going to be used for defining key names used in the Firebase RealtimeDB.
 // It is used to ensure that whenever data is written into or read from the database, the key names remain consistent.
