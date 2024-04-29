@@ -69,7 +69,6 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
         // ride requests for the Driver.
         if (holder instanceof RideRequestsViewHolder) {
             RideRequestsViewHolder rideRequestsViewHolder = (RideRequestsViewHolder) holder;
-
             /*
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
             String formattedDate = ride.getDate().format(formatter);
@@ -86,6 +85,9 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
                     //TODO 2. In the ride that is fetched, (in the ride variable), set the driver_id to currently logged in user.
                     //TODO 3. Call the ride_request_accepted_success() method of the DriverActivity to display green snack bar message saying ride accepted.
                     //TODO 4. Then Delete that particular inflater from the screen
+
+                    int adapterPosition = rideRequestsViewHolder.getAdapterPosition();
+
                     ride.setDriverID(loggedInUserId);
                     ((DriverActivity) context).ride_request_accepted_success();
                     m_firebaseops_instance.acceptRide(ride, new CreateRideInDBCallback() {
@@ -102,6 +104,8 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
                             // Show an error message
                         }
                     });
+
+
                 }
             });
 
