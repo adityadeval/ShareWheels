@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.uga.cs.sharewheels.activities.DriverActivity;
@@ -20,6 +21,7 @@ import edu.uga.cs.sharewheels.datamodels.Ride;
 import edu.uga.cs.sharewheels.datamodels.User;
 
 public class FirebaseOps {
+    public static final String DEBUG_TAG = "FirebaseOps";
 
     // Below line gets the singleton instance of FirebaseDatabase that points to my Firebase Realtime Database in
     // ShareWheels project present in Firebase.
@@ -31,6 +33,7 @@ public class FirebaseOps {
     // that modify the database.
     DatabaseReference users_node_ref = DBref.getReference( DBConstants.USERS_NODE_NAME );
     DatabaseReference rides_node_ref = DBref.getReference( DBConstants.RIDES_NODE_NAME );
+
 
     public void create_user_in_DB(String userID, String firstName, String lastName, String emailID, String password, CreateUserInDBCallback callback){
 
@@ -92,6 +95,7 @@ public class FirebaseOps {
                         if (activity instanceof MyAccountActivity) {
                             ((MyAccountActivity) activity).userDataFetchSuccess(user_obj);
                         }
+                     //   return null;
                     }
 
                     // onCancelled is called when the read operation couldn't be completed successfully.
@@ -163,8 +167,50 @@ public class FirebaseOps {
                         callback.onFailure(e.getMessage());
                     });
         }
+    }
 
+    public void get_all_rides(Activity activity, GetAllRidesFromDBCallback callback) {
+        Log.d( DEBUG_TAG, "Inside get_all_rides" );
+        rides_node_ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d( DEBUG_TAG, "Inside onDataChange" );
 
+                ArrayList<Ride> rideList = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Ride ride_obj = snapshot.getValue(Ride.class);
+                    if (activity instanceof RiderActivity) {
+                        if(ride_obj.getRiderID() == null || ride_obj.getRiderID().isEmpty()) {
+                            if (!getLoggedInUserID().equals(ride_obj.getDriverID())){
+                                Log.d( DEBUG_TAG, "Driver/Ride Offeror: "+ride_obj.getDriverID());
+                                rideList.add(ride_obj);
+                            }
+                        }
+                    }
+                    if (activity instanceof DriverActivity) {
+                        if(ride_obj.getDriverID() == null || ride_obj.getDriverID().isEmpty()) {
+                            if (!getLoggedInUserID().equals(ride_obj.getRiderID())){
+                                Log.d( DEBUG_TAG, "Driver/Ride Requester: "+ride_obj.getRiderID());
+                                rideList.add(ride_obj);
+                            }
+                        }
+                    }
+                }
+                Log.d( DEBUG_TAG, "rideList: "+rideList );
 
+                callback.onRideDataReceived(rideList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.e(activity.getClass().getSimpleName(), "Error while fetching rides.", error.toException());
+            }
+        });
+    }
+
+    public void acceptRide(Ride ride, CreateRideInDBCallback callback) {
+        rides_node_ref.child(ride.getRideId()).setValue(ride)
+                .addOnSuccessListener(aVoid -> callback.onSuccess())
+                .addOnFailureListener(e -> callback.onFailure(e.getMessage()));
     }
 }
