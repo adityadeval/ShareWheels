@@ -1,32 +1,40 @@
-package edu.uga.cs.sharewheels;
+package edu.uga.cs.sharewheels.datamodels;
 
 import java.time.LocalDate;
 
 public class Ride {
     private String rideId;
-    private LocalDate date;
+
+    // Storing date as type String and not LocalDate or other formats as they are not supported by FirebaseDB.
+    private String date;
     private String origin;
     private String destination;
     private int rideCost;
-    private String riderID;
-    private String driverID;
-    private Boolean riderCompletionFlag;
-    private Boolean driverCompletionFlag;
+    private String riderID = "";
+    private String driverID = "";
+    private Boolean riderCompletionFlag = false;
+    private Boolean driverCompletionFlag = false;
 
-    public void Ride() {
+    public Ride() {
     }
 
-    public void Ride(String rideId, LocalDate date, String origin, String destination, int rideCost,
-                     String riderName, String driverName, Boolean riderCompletionFlag, Boolean driverCompletionFlag) {
+    // Below constructor would be used while creating Ride offers by Drivers.
+    public Ride(String rideId, String date, String origin, String destination, int rideCost, String driverID){
         this.rideId = rideId;
         this.date = date;
         this.origin = origin;
         this.destination = destination;
         this.rideCost = rideCost;
-        this.riderID = riderName;
-        this.driverID = driverName;
-        this.riderCompletionFlag = riderCompletionFlag;
-        this.driverCompletionFlag = driverCompletionFlag;
+        this.driverID = driverID != null ? driverID : "";
+    }
+
+    // Below constructor would be used while creating Ride requests by Riders.
+    public Ride(String rideId, String date, String origin, String destination, String riderID){
+        this.rideId = rideId;
+        this.date = date;
+        this.origin = origin;
+        this.destination = destination;
+        this.riderID = riderID != null ? riderID : "";
     }
 
     public String getRideId() {
@@ -37,11 +45,11 @@ public class Ride {
         this.rideId = rideId;
     }
 
-    public LocalDate getDate() {
-        return this.date;
+    public String getDate() {
+        return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -69,20 +77,20 @@ public class Ride {
         this.rideCost = rideCost;
     }
 
-    public String getRiderName() {
+    public String getRiderID() {
         return riderID;
     }
 
-    public void setRiderName(String riderID) {
-        this.riderID = riderID;
+    public void setRiderID(String riderID) {
+        this.riderID = riderID != null ? riderID : "";
     }
 
-    public String getDriverName() {
+    public String getDriverID() {
         return driverID;
     }
 
-    public void setDriverName(String driverName) {
-        this.driverID = driverID;
+    public void setDriverID(String driverID) {
+        this.driverID = driverID != null ? driverID : "";
     }
 
     public Boolean getRiderCompletionFlag() {

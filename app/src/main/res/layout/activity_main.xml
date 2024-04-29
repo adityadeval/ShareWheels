@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/white"
+    tools:context=".activities.MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,39 +19,56 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:layout_marginBottom="150dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="16dp"
-            android:gravity="center_horizontal">
+            android:padding="18dp">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
                 android:text="@string/main_activity_title"
-                android:textColor="@color/red"
-                android:textSize="24sp"
-                android:layout_marginBottom="32dp" />
+                android:textColor="@color/black"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/btn_driver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:text="@string/driver_button_lbl"
-                android:layout_marginBottom="16dp" />
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black"/>
 
             <Button
                 android:id="@+id/btn_rider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:text="@string/rider_button_lbl"
-                android:layout_marginBottom="16dp" />
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black"/>
 
             <Button
                 android:id="@+id/btn_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:text="@string/settings_button_lbl"
-                android:layout_marginBottom="16dp" />
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black"/>
+
+            <Button
+                android:id="@+id/btn_myrides"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/myrides_button_lbl"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black"/>
 
         </LinearLayout>
     </ScrollView>

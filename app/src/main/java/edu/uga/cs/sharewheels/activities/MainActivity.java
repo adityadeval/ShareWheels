@@ -1,4 +1,4 @@
-package edu.uga.cs.sharewheels;
+package edu.uga.cs.sharewheels.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import edu.uga.cs.sharewheels.R;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = "MainActivity";
     private Button btn_driver;
     private Button btn_rider;
     private Button btn_settings;
+    private Button btn_myrides;
     //private FirebaseAuth mAuth;
 
     @Override
@@ -23,10 +26,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_driver = findViewById(R.id.btn_driver);
         btn_rider = findViewById(R.id.btn_rider);
         btn_settings = findViewById(R.id.btn_settings);
+        btn_myrides = findViewById(R.id.btn_myrides);
 
         btn_settings.setOnClickListener(this);
         btn_driver.setOnClickListener(this);
         btn_rider.setOnClickListener(this);
+        btn_myrides.setOnClickListener(this);
 
         /*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -66,6 +71,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         else if (viewId == R.id.btn_settings) {
             Intent intent = new Intent(MainActivity.this, MyAccountActivity.class);
+            startActivity(intent);
+        }
+
+        else if (viewId == R.id.btn_myrides) {
+            Intent intent = new Intent(MainActivity.this, MyRidesActivity.class);
             startActivity(intent);
         }
 

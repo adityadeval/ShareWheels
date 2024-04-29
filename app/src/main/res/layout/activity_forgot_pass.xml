@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ForgotPassActivity">
+    android:background="@color/white"
+    tools:context=".activities.ForgotPassActivity">
 
     <TextView
         android:id="@+id/tv_title"
@@ -66,6 +67,7 @@
         android:textSize="@dimen/btn_textSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_email" />
+        app:layout_constraintTop_toBottomOf="@id/et_email"
+        app:backgroundTint="@color/black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

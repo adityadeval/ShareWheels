@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    android:background="@color/white"
+    tools:context=".activities.RegisterActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_register_activity"
@@ -111,8 +112,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/black"
                 android:text="Register"
-                android:textSize="@dimen/btn_textSize">
+                android:textSize="@dimen/btn_textSize"
+                android:textColor="@color/white">
             </Button>
 
             <LinearLayout
@@ -132,7 +135,7 @@
                     android:text="Account already exists?"
                     android:padding="@dimen/clickable_text_view_padding"
                     android:textSize="@dimen/tv_general_textSize"
-                    android:textColor="@color/colorSecondaryText">
+                    android:textColor="@color/black">
                 </TextView>
 
                 <TextView
@@ -141,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:text="Login"
                     android:padding="@dimen/clickable_text_view_padding"
-                    android:textColor="@color/colorSecondaryText"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/tv_general_textSize">
                 </TextView>
 

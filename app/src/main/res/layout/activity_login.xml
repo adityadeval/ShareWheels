@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    android:background="@color/white"
+    tools:context=".activities.LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -73,7 +74,7 @@
                 android:layout_marginEnd="16dp"
                 android:padding="@dimen/clickable_text_view_padding"
                 android:text="@string/lbl_forgot_password"
-                android:textColor="@color/colorSecondaryText"
+                android:textColor="@color/black"
                 android:textSize="@dimen/forgot_password_textSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_password">
@@ -95,7 +96,8 @@
                 android:textSize="@dimen/btn_textSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_forgot_password">
+                app:layout_constraintTop_toBottomOf="@id/tv_forgot_password"
+                app:backgroundTint="@color/black">
             </Button>
 
             <LinearLayout
@@ -115,7 +117,7 @@
                     android:layout_marginTop="16dp"
                     android:padding="@dimen/clickable_text_view_padding"
                     android:text="@string/account_absent"
-                    android:textColor="@color/colorSecondaryText"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/tv_general_textSize">
                 </TextView>
 
@@ -127,7 +129,7 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:padding="@dimen/clickable_text_view_padding"
                     android:text="@string/register"
-                    android:textColor="@color/colorSecondaryText"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/tv_general_textSize">
                 </TextView>
             </LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_pending_rides"
+        android:icon="@drawable/ic_pending_rides"
+        android:title="Pending Rides" />
+
+    <item
+        android:id="@+id/navigation_active_rides"
+        android:icon="@drawable/ic_active_rides"
+        android:title="Active Rides" />
+
+    <item
+        android:id="@+id/navigation_completed_rides"
+        android:icon="@drawable/ic_completed_rides"
+        android:title="Completed Rides" />
+
+</menu>
