@@ -89,6 +89,7 @@
         android:textSize="10sp"
         android:padding="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_RideRequestorValue"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_RideRequestorValue"
+        app:backgroundTint="@color/black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

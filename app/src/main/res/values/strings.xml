@@ -28,10 +28,10 @@
     <string name="email_sent_success">\"Email sent successfully to reset your password! \"</string>
 
     <!--    Strings for MainActivity -->
-    <string name="main_activity_title">Dashboard</string>
-    <string name="driver_button_lbl">Proceed as a Driver</string>
-    <string name="rider_button_lbl">Proceed as a Rider</string>
-    <string name="settings_button_lbl">My Account</string>
+    <string name="main_activity_title">Welcome to your dashboard! Ready to hit the road? Start sharing your journey with ShareWheels and drive the change. 🚗✨</string>
+    <string name="driver_button_lbl">I am Driving Today 🚗</string>
+    <string name="rider_button_lbl">I am Riding Along 🚶</string>
+    <string name="settings_button_lbl">Personal Pit Stop 🛠️</string>
 
     <string name="title_myaccount">My Account</string>
 

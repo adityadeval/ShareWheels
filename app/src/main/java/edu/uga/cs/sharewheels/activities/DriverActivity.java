@@ -1,6 +1,8 @@
 package edu.uga.cs.sharewheels.activities;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -16,15 +18,22 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
+import edu.uga.cs.sharewheels.adapters.AdapterDisplayRides;
+import edu.uga.cs.sharewheels.datamodels.Ride;
 import edu.uga.cs.sharewheels.firebaseutils.CreateRideInDBCallback;
 import edu.uga.cs.sharewheels.firebaseutils.FirebaseOps;
 import edu.uga.cs.sharewheels.R;
+import edu.uga.cs.sharewheels.firebaseutils.GetAllRidesFromDBCallback;
 
 public class DriverActivity extends BaseActivity implements View.OnClickListener{
-
+    public static final String DEBUG_TAG = "DriverActivity";
     private FloatingActionButton fabNewRideOffer;
     private FirebaseOps m_firebaseops_instance;
+    private AdapterDisplayRides adapter;
+    private RecyclerView recyclerView;
+    private ArrayList<Ride> rides;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +43,9 @@ public class DriverActivity extends BaseActivity implements View.OnClickListener
 
         fabNewRideOffer = findViewById(R.id.fabNewRideOffer);
         fabNewRideOffer.setOnClickListener(this);
+
+        //Call the method to display the Ride Requests
+        showRideRequests();
     }
 
     public void ride_request_accepted_success(){
@@ -148,5 +160,26 @@ public class DriverActivity extends BaseActivity implements View.OnClickListener
         return true; // If all checks passed
     }
 
+    public void showRideRequests(){
+        Log.d( DEBUG_TAG, "Inside showRideOffers" );
+
+        recyclerView = findViewById(R.id.rv_ride_requests);
+        recyclerView.setLayoutManager(new LinearLayoutManager(DriverActivity.this));
+        m_firebaseops_instance.get_all_rides(DriverActivity.this, new GetAllRidesFromDBCallback() {
+            @Override
+            public void onRideDataReceived(ArrayList<Ride> rideList) {
+                Log.d( DEBUG_TAG, "Inside onRideDataReceived, rideList: "+rideList );
+                rides = rideList;
+                adapter = new AdapterDisplayRides(DriverActivity.this, rides);
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onRideDataFailed(String error) {
+                Log.e(DEBUG_TAG, "Failed to fetch rides: " + error);
+            }
+        });
+    }
 
 }

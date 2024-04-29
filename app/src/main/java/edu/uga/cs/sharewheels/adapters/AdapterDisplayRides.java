@@ -11,7 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import edu.uga.cs.sharewheels.R;
+import edu.uga.cs.sharewheels.activities.DriverActivity;
+import edu.uga.cs.sharewheels.activities.RiderActivity;
 import edu.uga.cs.sharewheels.datamodels.Ride;
+import edu.uga.cs.sharewheels.firebaseutils.CreateRideInDBCallback;
+import edu.uga.cs.sharewheels.firebaseutils.FirebaseOps;
 
 
 public class AdapterDisplayRides extends RecyclerView.Adapter{
@@ -23,6 +27,8 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
     // It is not dependent on whether we're displaying ride requests or ride offers. This arrayList will simply contain data
     // from the JSON node "Ride" of our database.
     private ArrayList<Ride> arrayList_rides;
+    private FirebaseOps m_firebaseops_instance;
+    String loggedInUserId = "";
 
     public AdapterDisplayRides(Context context, ArrayList<Ride> arrayList_rides) {
         this.context = context;
@@ -30,10 +36,25 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
     }
 
     @Override
-    public RideRequestsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_ride_requests, parent, false);
-        return new RideRequestsViewHolder(itemView);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        //Get the Logged in user id
+        m_firebaseops_instance = new FirebaseOps();
+        loggedInUserId = m_firebaseops_instance.getLoggedInUserID();
+
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View itemView;
+
+        if (context.getClass().getSimpleName().equals("RiderActivity")) {
+            itemView = inflater.inflate(R.layout.item_ride_offers, parent, false);
+            return new RideOffersViewHolder(itemView);
+        } else if (context.getClass().getSimpleName().equals("DriverActivity")) {
+            itemView = inflater.inflate(R.layout.item_ride_requests, parent, false);
+            return new RideRequestsViewHolder(itemView);
+        } else {
+            // Default case, or log error
+            return null; // This line can be handled better depending on your error handling strategy
+        }
     }
 
     // Below method would be called by Android each time a Holder is created by the adapter for displaying data.
@@ -63,7 +84,24 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
                 public void onClick(View v) {
                     //TODO 1. First fetch the userID of the user who's logged in.
                     //TODO 2. In the ride that is fetched, (in the ride variable), set the driver_id to currently logged in user.
-                    //TODO 3. Call the ride_request_accepted_succes() method of the DriverActivity to display green snack bar message saying ride accepted.
+                    //TODO 3. Call the ride_request_accepted_success() method of the DriverActivity to display green snack bar message saying ride accepted.
+                    //TODO 4. Then Delete that particular inflater from the screen
+                    ride.setDriverID(loggedInUserId);
+                    ((DriverActivity) context).ride_request_accepted_success();
+                    m_firebaseops_instance.acceptRide(ride, new CreateRideInDBCallback() {
+                        @Override
+                        public void onSuccess() {
+                            // Remove the accepted ride from the list and update the UI
+                            arrayList_rides.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, arrayList_rides.size());
+                        }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            // Show an error message
+                        }
+                    });
                 }
             });
 
@@ -73,14 +111,10 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
         if(holder instanceof RideOffersViewHolder){
             RideOffersViewHolder rideOffersViewHolder = (RideOffersViewHolder) holder;
 
-            /*
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-            String formattedDate = ride.getDate().format(formatter);
-             */
             rideOffersViewHolder.tv_DateValue_offer.setText(ride.getDate());
             rideOffersViewHolder.tv_OriginValue_offer.setText(ride.getOrigin());
             rideOffersViewHolder.tv_DestinationValue_offer.setText(ride.getDestination());
-            rideOffersViewHolder.tv_RideOfferorValue.setText(ride.getRiderID());
+            rideOffersViewHolder.tv_RideOfferorValue.setText(ride.getDriverID());
 
             rideOffersViewHolder.button_acceptRideOffer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -88,6 +122,23 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
                     //TODO 1. First fetch the userID of the user who's logged in.
                     //TODO 2. In the ride that is fetched, (variable 'ride'), set the rider_id to currently logged in user's ID.
                     //TODO 3. Call the ride_offer_accepted_success() method of the RiderActivity to display green snack bar message saying ride accepted.
+                    //TODO 4. Then Delete that particular inflater from the screen
+                    ride.setRiderID(loggedInUserId);
+                    ((RiderActivity) context).ride_offer_accepted_success();
+                    m_firebaseops_instance.acceptRide(ride, new CreateRideInDBCallback() {
+                        @Override
+                        public void onSuccess() {
+                            // Remove the accepted ride from the list and update the UI
+                            arrayList_rides.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, arrayList_rides.size());
+                        }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            // Show an error message
+                        }
+                    });
                 }
             });
         }
@@ -95,7 +146,8 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        return 0;
+
+        return arrayList_rides.size();
     }
 
 
