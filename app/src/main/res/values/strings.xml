@@ -34,9 +34,9 @@
     <string name="settings_button_lbl">My Account 🛠️</string>
     <string name="myrides_button_lbl">View my rides </string>
 
-    <string name="title_myaccount">My Account</string>
+    <string name="title_pending_rides">Pending Rides</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_active_rides">Active Rides</string>
+    <string name="title_completed_rides">Completed Rides</string>
 
 </resources>

@@ -24,7 +24,7 @@
                 android:id="@+id/tvTitleAccountSettings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_myaccount"
+                android:text="My Account"
                 android:textSize="@dimen/title_textSize"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"

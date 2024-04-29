@@ -8,24 +8,23 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import edu.uga.cs.sharewheels.databinding.FragmentNotificationsBinding;
+import edu.uga.cs.sharewheels.databinding.FragmentPendingRidesBinding;
 
-public class NotificationsFragment extends Fragment {
+public class PendingRidesFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentPendingRidesBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        NotificationsViewModel notificationsViewModel =
-//                new ViewModelProvider(this).get(NotificationsViewModel.class);
+//        HomeViewModel homeViewModel =
+//                new ViewModelProvider(this).get(HomeViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentPendingRidesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        textView.setText("This is Notifications Fragment");
+        final TextView textView = binding.textHome;
+        textView.setText("This is PendingRidesFragment");
         return root;
     }
 

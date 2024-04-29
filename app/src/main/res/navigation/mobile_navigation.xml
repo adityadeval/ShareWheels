@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_active_rides">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="edu.uga.cs.sharewheels.fragments.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_pending_rides"
+        android:name="edu.uga.cs.sharewheels.fragments.PendingRidesFragment"
+        android:label="@string/title_pending_rides"
+        tools:layout="@layout/fragment_pending_rides" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="edu.uga.cs.sharewheels.fragments.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_active_rides"
+        android:name="edu.uga.cs.sharewheels.fragments.ActiveRidesFragment"
+        android:label="@string/title_active_rides"
+        tools:layout="@layout/fragment_active_rides" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="edu.uga.cs.sharewheels.fragments.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_completed_rides"
+        android:name="edu.uga.cs.sharewheels.fragments.CompletedRidesFragment"
+        android:label="@string/title_completed_rides"
+        tools:layout="@layout/fragment_completed_rides" />
 </navigation>

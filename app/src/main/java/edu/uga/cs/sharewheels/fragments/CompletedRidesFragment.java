@@ -8,24 +8,23 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import edu.uga.cs.sharewheels.databinding.FragmentHomeBinding;
+import edu.uga.cs.sharewheels.databinding.FragmentCompletedRidesBinding;
 
-public class HomeFragment extends Fragment {
+public class CompletedRidesFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentCompletedRidesBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        HomeViewModel homeViewModel =
-//                new ViewModelProvider(this).get(HomeViewModel.class);
+//        NotificationsViewModel notificationsViewModel =
+//                new ViewModelProvider(this).get(NotificationsViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentCompletedRidesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        textView.setText("This is HomeFragment");
+        final TextView textView = binding.textNotifications;
+        textView.setText("This is completed rides Fragment");
         return root;
     }
 

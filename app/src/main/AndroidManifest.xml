@@ -14,10 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShareWheels"
         tools:targetApi="31">
+        <!--   "singleTop" ensures that if the task already exists at the top of the stack, the system reuses the task
+                and does not create a new instance of the activity.
+                clearTaskOnLaunch="true" ensures that every time the user leaves the activity and returns to it, all of
+                the other activities in the task are cleared.-->
         <activity
             android:name=".activities.MyRidesActivity"
             android:exported="false"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:clearTaskOnLaunch="true"/>
         <activity
             android:name=".activities.DriverActivity"
             android:exported="false" />
