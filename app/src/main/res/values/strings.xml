@@ -29,9 +29,9 @@
 
     <!--    Strings for MainActivity -->
     <string name="main_activity_title">Welcome to your dashboard! Ready to hit the road? Start sharing your journey with ShareWheels and drive the change. 🚗✨</string>
-    <string name="driver_button_lbl">I am Driving Today</string>
-    <string name="rider_button_lbl">I am Riding Along</string>
-    <string name="settings_button_lbl">Personal Pit Stop</string>
+    <string name="driver_button_lbl">I am Driving Today 🚗</string>
+    <string name="rider_button_lbl">I am Riding Along 🚶</string>
+    <string name="settings_button_lbl">Personal Pit Stop 🛠️</string>
 
     <string name="title_myaccount">My Account</string>
 
