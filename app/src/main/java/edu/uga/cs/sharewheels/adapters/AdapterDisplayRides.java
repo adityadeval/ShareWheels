@@ -82,7 +82,7 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
             rideRequestsViewHolder.button_acceptRideRequest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO 1. First fetch the userID of the user who's logged in.
+                    //TODO 1. First fetch the userID of the user who's logge
                     //TODO 2. In the ride that is fetched, (in the ride variable), set the driver_id to currently logged in user.
                     //TODO 3. Call the ride_request_accepted_success() method of the DriverActivity to display green snack bar message saying ride accepted.
                     //TODO 4. Then Delete that particular inflater from the screen
