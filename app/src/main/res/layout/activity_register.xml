@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_image"
+    android:background="@color/white"
     tools:context=".activities.RegisterActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -112,9 +112,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/black"
                 android:text="Register"
                 android:textSize="@dimen/btn_textSize"
-                app:backgroundTint="@color/black">
+                android:textColor="@color/white">
             </Button>
 
             <LinearLayout

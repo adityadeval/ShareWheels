@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_image"
+    android:background="@color/white"
     tools:context=".activities.MainActivity">
 
     <ScrollView
@@ -39,9 +39,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:background="@color/black"
                 android:text="@string/driver_button_lbl"
-                app:backgroundTint="@color/black" />
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black"/>
 
             <Button
                 android:id="@+id/btn_rider"
@@ -49,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/rider_button_lbl"
-                app:backgroundTint="@color/black" />
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black"/>
 
             <Button
                 android:id="@+id/btn_settings"
@@ -57,7 +58,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/settings_button_lbl"
-                app:backgroundTint="@color/black" />
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black"/>
+
+            <Button
+                android:id="@+id/btn_myrides"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/myrides_button_lbl"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black"/>
 
         </LinearLayout>
     </ScrollView>

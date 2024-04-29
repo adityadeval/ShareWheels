@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation= "vertical"
-    android:background="@drawable/background_image"
+    android:background="@color/white"
     android:padding= "16dp">
 
     <TextView
         android:id="@+id/tvDateLabel"
+        android:textSize="16sp"
         android:text="Date"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -17,36 +19,45 @@
         android:id="@+id/etDate"
         android:hint="Enter Date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/tvOriginLabel"
         android:text="Origin"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
 
     <EditText
         android:id="@+id/etOrigin"
         android:hint="Enter Origin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/tvDestinationLabel"
         android:text="Destination"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
 
     <EditText
         android:id="@+id/etDestination"
         android:hint="Enter Destination"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
 
     <Button
         android:id="@+id/btnCreateRideRequest"
         android:text="Create ride request"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/black"/>
+        android:textSize="16sp"/>
 </LinearLayout>

@@ -13,4 +13,15 @@
 
     <color name="colorDarkGrey">#878787</color>
 
+    <color name="colorlightGrey">#868686</color>
+
+    <color name="colorPrimary">#FF5722</color> <!-- Deep orange -->
+    <color name="colorPrimaryDark">#E64A19</color> <!-- Darker shade for status bar -->
+    <color name="colorAccent">#FFC107</color> <!-- Amber for accent -->
+
+    <color name="buttons_color">#32C5FF</color>
+    <color name="grey_background">#f4f4f8</color>
+    <color name="yellow_highlight">#FFA219</color>
+    <color name="dark_blue_text">#1A2F52</color>
+
 </resources>

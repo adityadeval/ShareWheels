@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_image"
+    android:background="@color/white"
     tools:context=".activities.MyAccountActivity">
 
     <ScrollView
@@ -41,7 +41,8 @@
                 app:layout_constraintTop_toBottomOf="@id/tvTitleAccountSettings"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:text="User name" />
+                tools:text="User name"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tv_email"
@@ -55,7 +56,8 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_user_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:text="user_name@gmail.com" />
+                tools:text="user_name@gmail.com"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:id="@+id/ll_ride_points"
@@ -74,6 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Your ride points"
+                    android:textStyle="bold"
                     android:padding="@dimen/clickable_text_view_padding"
                     android:textSize="@dimen/tv_medium_textSize"
                     android:textColor="@color/colorSecondaryText">
@@ -84,6 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100 points"
+                    android:textStyle="bold"
                     android:padding="@dimen/clickable_text_view_padding"
                     android:textColor="@color/colorSecondaryText"
                     android:textSize="@dimen/tv_medium_textSize">
@@ -101,7 +105,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/ll_ride_points"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:backgroundTint="@color/black"/>
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black"/>
 
             <TextView
                 android:id="@+id/tv_lbl_MyRides"
