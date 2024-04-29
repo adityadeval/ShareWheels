@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_image"
     tools:context=".activities.MyAccountActivity">
 
     <ScrollView
@@ -99,7 +100,8 @@
                 android:layout_marginTop="@dimen/myaccount_activity_marginTop"
                 app:layout_constraintTop_toBottomOf="@+id/ll_ride_points"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:backgroundTint="@color/black"/>
 
             <TextView
                 android:id="@+id/tv_lbl_MyRides"
