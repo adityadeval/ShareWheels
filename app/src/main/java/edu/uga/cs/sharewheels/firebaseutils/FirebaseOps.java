@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import edu.uga.cs.sharewheels.activities.DriverActivity;
 import edu.uga.cs.sharewheels.activities.MyAccountActivity;
@@ -249,28 +250,31 @@ public class FirebaseOps {
         ArrayList<Ride> fetched_rides = new ArrayList<>();
 
         for (String rideId : rideIds) {
-            Log.d("FireBaseOps.fetchUserRides()", "Fetching data for rideID: " + rideId);
-            rides_node_ref.child(rideId).addListenerForSingleValueEvent(new ValueEventListener() {
+            if (rideId != null && !rideId.isEmpty()) {
+                Log.d("FireBaseOps.fetchUserRides()", "Fetching data for rideID: " + rideId);
+                rides_node_ref.child(rideId).addListenerForSingleValueEvent(new ValueEventListener() {
 
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Ride ride = snapshot.getValue(Ride.class);
-                    if (ride != null) {
-                        fetched_rides.add(ride);
-                        Log.d("FireBaseOps.fetchUserRides()", "fetched_rides array :" + fetched_rides);
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Ride ride = snapshot.getValue(Ride.class);
+                        if (ride != null) {
+                            fetched_rides.add(ride);
+                            Log.d("FireBaseOps.fetchUserRides()", "fetched_rides array :" + fetched_rides.size());
+                        }
+                        Log.d("FireBaseOps.fetchUserRides()", "rideIds.size is :" + rideIds.size());
+                        if (fetched_rides.size() == rideIds.stream().filter(Objects::nonNull).filter(id -> !id.isEmpty()).count()) { // Ensure all rides are fetched before calling onSuccess
+                            Log.d("FireBaseOps.fetchUserRides()", "Inside second if ");
+                            callback.onRideDataReceived(fetched_rides);
+                        }
                     }
-                    if (fetched_rides.size() == rideIds.size()) { // Ensure all rides are fetched before calling onSuccess
-                        callback.onRideDataReceived(fetched_rides);
-                    }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    callback.onRideDataFailed(error.getMessage());
-                }
-            });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        callback.onRideDataFailed(error.getMessage());
+                    }
+                });
+            }
         }
-
     }
 
     public void acceptRide(Ride ride, CreateRideInDBCallback callback) {
