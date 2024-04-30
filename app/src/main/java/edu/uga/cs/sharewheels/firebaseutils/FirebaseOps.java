@@ -49,9 +49,11 @@ public class FirebaseOps {
         // Check if RidesList is empty (which it would be initially).
         // Firebase DB would just not add RidesList to the child node being created if RidesList is empty.
         // Hence it is necessary to initialize it with some default value.
+        /*
         if (user_obj.getRidesList() == null || user_obj.getRidesList().isEmpty()) {
             user_obj.setRidesList(Arrays.asList("defaultRideId"));
         }
+         */
 
         // Create a new child node called <whatever value userID contains>.
         // Contents of this child node would be all data of the user_obj.
@@ -262,7 +264,8 @@ public class FirebaseOps {
                             Log.d("FireBaseOps.fetchUserRides()", "fetched_rides array :" + fetched_rides.size());
                         }
                         Log.d("FireBaseOps.fetchUserRides()", "rideIds.size is :" + rideIds.size());
-                        if (fetched_rides.size() == rideIds.stream().filter(Objects::nonNull).filter(id -> !id.isEmpty()).count()) { // Ensure all rides are fetched before calling onSuccess
+                        int ride_count = (int) (rideIds.stream().filter(Objects::nonNull).filter(id -> !id.isEmpty()).count() - 1);
+                        if (fetched_rides.size() == ride_count) { // Ensure all rides are fetched before calling onSuccess
                             Log.d("FireBaseOps.fetchUserRides()", "Inside second if ");
                             callback.onRideDataReceived(fetched_rides);
                         }
