@@ -69,6 +69,7 @@ public class PendingRidesFragment extends Fragment {
         adapter = new AdapterDisplayMyRidesFrag(getActivity(), new ArrayList<>(), this);
         rv_pending_rides.setAdapter(adapter);
 
+        Log.d("PendingRidesFragment", "Just set the adapter.");
         m_firebaseops_instance.get_user_as_obj(getActivity(), new UserDetailsCallback(){
 
             @Override
@@ -96,6 +97,8 @@ public class PendingRidesFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+
+
     }
 
     public void showPendingRides(List<String> ridesList){
@@ -104,6 +107,13 @@ public class PendingRidesFragment extends Fragment {
 
             @Override
             public void onRideDataReceived(ArrayList<Ride> rideList) {
+                if (isAdded()) {
+                    Log.d("PendingRidesFragment.showPendingRides()", "rideList = " + rideList);
+                    adapter.updateData(rideList);
+                    adapter.notifyDataSetChanged();
+                }
+
+                /*
                 Log.d("PendingRidesFragment.showPendingRides()", "rideList = "+rideList);
                 adapter.updateData(rideList);
 
@@ -112,11 +122,15 @@ public class PendingRidesFragment extends Fragment {
                 //rv_pending_rides.setAdapter(adapter);
 
                 adapter.notifyDataSetChanged();
+
+                 */
             }
 
             @Override
             public void onRideDataFailed(String error) {
-                Toast.makeText(getContext(), "Error fetching rides: " + error, Toast.LENGTH_SHORT).show();
+                if (isAdded()) {
+                    Toast.makeText(getContext(), "Error fetching rides: " + error, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
