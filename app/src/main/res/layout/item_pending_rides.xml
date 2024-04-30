@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:padding="16dp">
 
     <TextView
@@ -31,8 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Origin"
-        android:textSize="18sp"
         android:textStyle="bold"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDateLabel" />
 
@@ -68,38 +68,28 @@
         app:layout_constraintTop_toTopOf="@id/tvDestinationLabel"
         app:layout_constraintBottom_toBottomOf="@id/tvDestinationLabel" />
 
-    <TextView
-        android:id="@+id/tvRideRequestorLabel"
+    <Button
+        android:id="@+id/button_edit_ride"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ride Requestor"
+        android:text="Edit ride"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:backgroundTint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDestinationLabel" />
-
-    <TextView
-        android:id="@+id/tv_RideRequestorValue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/tvRideRequestorLabel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvRideRequestorLabel"
-        app:layout_constraintBottom_toBottomOf="@id/tvRideRequestorLabel" />
+        app:layout_constraintTop_toBottomOf="@id/tv_DestinationValue" />
 
     <Button
-        android:id="@+id/button_acceptRideRequest"
+        android:id="@+id/button_delete_ride"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="Accept Ride Request"
+        android:text="Delete ride"
         android:textSize="18sp"
+        android:textColor="@color/white"
         android:padding="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_RideRequestorValue"
-
-        android:backgroundTint="@color/black"/>
+        android:backgroundTint="@color/black"
+        app:layout_constraintStart_toEndOf="@id/button_edit_ride"
+        app:layout_constraintBottom_toBottomOf="@id/button_edit_ride"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

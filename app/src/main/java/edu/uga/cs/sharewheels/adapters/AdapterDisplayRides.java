@@ -1,6 +1,7 @@
 package edu.uga.cs.sharewheels.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,14 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
     public AdapterDisplayRides(Context context, ArrayList<Ride> arrayList_rides) {
         this.context = context;
         this.arrayList_rides = arrayList_rides;
+    }
+
+    // Method to update the data in the adapter
+    public void updateData(ArrayList<Ride> newRides) {
+        arrayList_rides.clear(); // Clear the existing data
+        arrayList_rides.addAll(newRides); // Add all new data
+        Log.d("AdapterDisplayRides", "Contents of arrayList_rides: " + arrayList_rides);
+        notifyDataSetChanged(); // Notify the adapter that the data has changed
     }
 
     @Override
@@ -165,9 +174,9 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
         public RideRequestsViewHolder(View itemView) {
             super(itemView);
 
-            tv_DateValue = itemView.findViewById(R.id.tv_DateValue_offer);
-            tv_OriginValue = itemView.findViewById(R.id.tv_OriginValue_offer);
-            tv_DestinationValue = itemView.findViewById(R.id.tv_DestinationValue_offer);
+            tv_DateValue = itemView.findViewById(R.id.tv_DateValue);
+            tv_OriginValue = itemView.findViewById(R.id.tv_OriginValue);
+            tv_DestinationValue = itemView.findViewById(R.id.tv_DestinationValue);
             tv_RideRequestorValue = itemView.findViewById(R.id.tv_RideRequestorValue);
             button_acceptRideRequest = itemView.findViewById(R.id.button_acceptRideRequest);
         }
@@ -185,11 +194,11 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
         public RideOffersViewHolder(View itemView) {
             super(itemView);
 
-            tv_DateValue_offer = itemView.findViewById(R.id.tv_DateValue_offer);
-            tv_OriginValue_offer = itemView.findViewById(R.id.tv_OriginValue_offer);
-            tv_DestinationValue_offer = itemView.findViewById(R.id.tv_DestinationValue_offer);
+            tv_DateValue_offer = itemView.findViewById(R.id.tv_DateValue);
+            tv_OriginValue_offer = itemView.findViewById(R.id.tv_OriginValue);
+            tv_DestinationValue_offer = itemView.findViewById(R.id.tv_DestinationValue);
             tv_RideOfferorValue = itemView.findViewById(R.id.tv_RideOfferorValue);
-            button_acceptRideOffer = itemView.findViewById(R.id.button_acceptRideOffer);
+            button_acceptRideOffer = itemView.findViewById(R.id.button_delete_ride);
         }
 
     }

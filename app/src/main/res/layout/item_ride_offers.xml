@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_DateValue_offer"
+        android:id="@+id/tv_DateValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDateLabel" />
 
     <TextView
-        android:id="@+id/tv_OriginValue_offer"
+        android:id="@+id/tv_OriginValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvOriginLabel" />
 
     <TextView
-        android:id="@+id/tv_DestinationValue_offer"
+        android:id="@+id/tv_DestinationValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
@@ -90,7 +90,7 @@
         app:layout_constraintBottom_toBottomOf="@id/tvRideOfferorLabel" />
 
     <Button
-        android:id="@+id/button_acceptRideOffer"
+        android:id="@+id/button_delete_ride"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Accept Ride Offer"

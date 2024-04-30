@@ -112,6 +112,27 @@ public class FirebaseOps {
         });
     }
 
+    public void get_user_as_obj(Activity activity, final UserDetailsCallback callback){
+        String userId = getLoggedInUserID();
+        users_node_ref.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if (user != null) {
+                    callback.onUserDetailsFetched(user);
+                } else {
+                    callback.onUserDetailsFailed("User not found");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                callback.onUserDetailsFailed(error.getMessage());
+            }
+        });
+    }
+
     public String getLoggedInUserID() {
         // Create an instance of FirebaseAuth's current user.
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -222,6 +243,34 @@ public class FirebaseOps {
                 Log.e(activity.getClass().getSimpleName(), "Error while fetching rides.", error.toException());
             }
         });
+    }
+
+    public void fetchUserRides(List<String> rideIds, GetAllRidesFromDBCallback callback) {
+        ArrayList<Ride> fetched_rides = new ArrayList<>();
+
+        for (String rideId : rideIds) {
+            Log.d("FireBaseOps.fetchUserRides()", "Fetching data for rideID: " + rideId);
+            rides_node_ref.child(rideId).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Ride ride = snapshot.getValue(Ride.class);
+                    if (ride != null) {
+                        fetched_rides.add(ride);
+                        Log.d("FireBaseOps.fetchUserRides()", "fetched_rides array :" + fetched_rides);
+                    }
+                    if (fetched_rides.size() == rideIds.size()) { // Ensure all rides are fetched before calling onSuccess
+                        callback.onRideDataReceived(fetched_rides);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    callback.onRideDataFailed(error.getMessage());
+                }
+            });
+        }
+
     }
 
     public void acceptRide(Ride ride, CreateRideInDBCallback callback) {
