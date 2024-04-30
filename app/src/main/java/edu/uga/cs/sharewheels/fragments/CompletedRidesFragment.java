@@ -23,8 +23,6 @@ public class CompletedRidesFragment extends Fragment {
         binding = FragmentCompletedRidesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        textView.setText("This is completed rides Fragment");
         return root;
     }
 
