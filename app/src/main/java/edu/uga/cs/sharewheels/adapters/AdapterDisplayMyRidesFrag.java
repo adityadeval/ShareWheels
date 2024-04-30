@@ -59,7 +59,15 @@ public class AdapterDisplayMyRidesFrag extends RecyclerView.Adapter<RecyclerView
         if (fragment.getClass().getSimpleName().equals("PendingRidesFragment")) {
             itemView = inflater.inflate(R.layout.item_pending_rides, parent, false);
             return new PendingRidesViewHolder(itemView);
-        }else {
+        }else if (fragment.getClass().getSimpleName().equals("ActiveRidesFragment")) {
+            itemView = inflater.inflate(R.layout.item_active_rides, parent, false);
+            return new ActiveRidesViewHolder(itemView);
+        }
+        else if (fragment.getClass().getSimpleName().equals("CompletedRidesFragment")) {
+            itemView = inflater.inflate(R.layout.item_completed_rides, parent, false);
+            return new CompleteRidesViewHolder(itemView);
+        }
+        else {
             // Default case, or log error
             return null;  // This line can be handled better depending on your error handling strategy
         }
@@ -72,10 +80,7 @@ public class AdapterDisplayMyRidesFrag extends RecyclerView.Adapter<RecyclerView
 
         if (holder instanceof PendingRidesViewHolder) {
             PendingRidesViewHolder pendingRidesHolder = (PendingRidesViewHolder) holder;
-            /*
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-            String formattedDate = ride.getDate().format(formatter);
-             */
+
             pendingRidesHolder.tv_DateValue.setText(ride.getDate());
             pendingRidesHolder.tv_OriginValue.setText(ride.getOrigin());
             pendingRidesHolder.tv_DestinationValue.setText(ride.getDestination());
@@ -133,6 +138,53 @@ public class AdapterDisplayMyRidesFrag extends RecyclerView.Adapter<RecyclerView
 
 
         }
+        if (holder instanceof ActiveRidesViewHolder) {
+            ActiveRidesViewHolder activeRidesHolder = (ActiveRidesViewHolder) holder;
+
+            activeRidesHolder.tv_DateValue.setText(ride.getDate());
+            activeRidesHolder.tv_OriginValue.setText(ride.getOrigin());
+            activeRidesHolder.tv_DestinationValue.setText(ride.getDestination());
+            String ride_partner = "";
+            if(ride.getDriverID().equals(loggedInUserId)){
+                ride_partner = ride.getRiderID();
+            }
+            else{
+                ride_partner = ride.getDriverID();
+            }
+            activeRidesHolder.tv_ride_partner_value.setText(ride_partner);
+
+            activeRidesHolder.button_complete_ride.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if(loggedInUserId.equals(ride.getRiderID())){
+                        ride.setRiderCompletionFlag(true);
+                    }else if(loggedInUserId.equals(ride.getDriverID())){
+                        ride.setDriverCompletionFlag(true);
+                    }
+
+                    ((DriverActivity) context).ride_request_accepted_success();
+                    m_firebaseops_instance.acceptRide(ride, new CreateRideInDBCallback() {
+                        @Override
+                        public void onSuccess() {
+                            // Remove the accepted ride from the list and update the UI
+                            arrayList_rides.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, arrayList_rides.size());
+                        }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            // Show an error message
+                        }
+                    });
+
+
+                }
+            });
+
+
+        }
 
     }
 
@@ -159,6 +211,39 @@ public class AdapterDisplayMyRidesFrag extends RecyclerView.Adapter<RecyclerView
         }
     }
 
+    public static class ActiveRidesViewHolder extends RecyclerView.ViewHolder{
+        TextView tv_DateValue;
+        TextView tv_OriginValue;
+        TextView tv_DestinationValue;
+        TextView tv_ride_partner_value;
+        Button button_complete_ride;
+
+        public ActiveRidesViewHolder(View itemView) {
+            super(itemView);
+
+            tv_DateValue = itemView.findViewById(R.id.tv_DateValue);
+            tv_OriginValue = itemView.findViewById(R.id.tv_OriginValue);
+            tv_DestinationValue = itemView.findViewById(R.id.tv_DestinationValue);
+            tv_ride_partner_value = itemView.findViewById(R.id.tv_ride_partner_value);
+            button_complete_ride = itemView.findViewById(R.id.button_complete_ride);
+        }
+    }
+
+    public static class CompleteRidesViewHolder extends RecyclerView.ViewHolder{
+        TextView tv_DateValue;
+        TextView tv_OriginValue;
+        TextView tv_DestinationValue;
+        TextView tv_ride_partner_value;
+
+        public CompleteRidesViewHolder(View itemView) {
+            super(itemView);
+
+            tv_DateValue = itemView.findViewById(R.id.tv_DateValue);
+            tv_OriginValue = itemView.findViewById(R.id.tv_OriginValue);
+            tv_DestinationValue = itemView.findViewById(R.id.tv_DestinationValue);
+            tv_ride_partner_value = itemView.findViewById(R.id.tv_ride_partner_value);
+        }
+    }
 
 
 }
