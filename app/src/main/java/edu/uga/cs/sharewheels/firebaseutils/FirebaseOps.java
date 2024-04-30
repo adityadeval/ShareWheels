@@ -283,6 +283,28 @@ public class FirebaseOps {
                 .addOnFailureListener(e -> callback.onFailure(e.getMessage()));
     }
 
+    public void deleteRide(String rideID, DeleteRideCallBack callback){
+        if (rideID == null || rideID.isEmpty()) {
+            Log.e(DEBUG_TAG, "Invalid rideID: Cannot be null or empty.");
+            callback.onFailure("Invalid rideID: Cannot be null or empty.");
+            return;
+        }
+
+        // Obtain a reference to the specific ride in the 'Rides' node
+        DatabaseReference rideRef = rides_node_ref.child(rideID);
+
+        // Perform the delete operation
+        rideRef.removeValue()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(DEBUG_TAG, "Ride successfully deleted: " + rideID);
+                    callback.onSuccess();  // Notify success through the callback
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(DEBUG_TAG, "Failed to delete ride: " + rideID, e);
+                    callback.onFailure(e.getMessage());  // Notify failure through the callback
+                });
+    }
+
 
     // Below function is used to add the RideID that the loggedIn user created (it could be a ride offer or request)
     // into the same user's 'ridesList'. So this would basically enable us to understand all rides the logged in user was

@@ -20,6 +20,7 @@ import edu.uga.cs.sharewheels.activities.DriverActivity;
 import edu.uga.cs.sharewheels.activities.MyRidesActivity;
 import edu.uga.cs.sharewheels.datamodels.Ride;
 import edu.uga.cs.sharewheels.firebaseutils.CreateRideInDBCallback;
+import edu.uga.cs.sharewheels.firebaseutils.DeleteRideCallBack;
 import edu.uga.cs.sharewheels.firebaseutils.FirebaseOps;
 import edu.uga.cs.sharewheels.fragments.PendingRidesFragment;
 
@@ -78,8 +79,31 @@ public class AdapterDisplayMyRidesFrag extends RecyclerView.Adapter<RecyclerView
             pendingRidesHolder.tv_DateValue.setText(ride.getDate());
             pendingRidesHolder.tv_OriginValue.setText(ride.getOrigin());
             pendingRidesHolder.tv_DestinationValue.setText(ride.getDestination());
+
+            pendingRidesHolder.button_delete_ride.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    m_firebaseops_instance.deleteRide(ride.getRideId(), new DeleteRideCallBack() {
+                        @Override
+                        public void onSuccess() {
+                            // Remove the ride from the list and notify the adapter
+                            arrayList_rides.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, arrayList_rides.size());
+                            Log.d("AdapterDisplayMyRidesFrag", "Ride deleted successfully");
+                        }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            // Log or display the error
+                            Log.e("AdapterDisplayMyRidesFrag", "Failed to delete ride: " + errorMessage);
+                        }
+                    });
+                }
+                });
+
             /*
-            pendingRidesHolder.button_edit_ride.setOnClickListener(new View.OnClickListener() {
+            pendingRidesHolder.button_delete_ride.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -105,8 +129,9 @@ public class AdapterDisplayMyRidesFrag extends RecyclerView.Adapter<RecyclerView
 
                 }
             });
-
              */
+
+
         }
 
     }
