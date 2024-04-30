@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uga.cs.sharewheels.R;
+import edu.uga.cs.sharewheels.adapters.AdapterDisplayMyRidesFrag;
 import edu.uga.cs.sharewheels.adapters.AdapterDisplayRides;
 import edu.uga.cs.sharewheels.databinding.FragmentPendingRidesBinding;
 import edu.uga.cs.sharewheels.datamodels.Ride;
@@ -30,7 +31,7 @@ public class PendingRidesFragment extends Fragment {
 
     private FragmentPendingRidesBinding binding;
     private FirebaseOps m_firebaseops_instance;
-    private AdapterDisplayRides adapter;
+    private AdapterDisplayMyRidesFrag adapter;
     private RecyclerView rv_pending_rides;
     private ArrayList<Ride> rides;
 
@@ -65,7 +66,7 @@ public class PendingRidesFragment extends Fragment {
         rv_pending_rides = view.findViewById(R.id.rv_pending_rides);
         // Setup RecyclerView - Adapter, LayoutManager, etc.
         rv_pending_rides.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new AdapterDisplayRides(getActivity(), new ArrayList<>());
+        adapter = new AdapterDisplayMyRidesFrag(getActivity(), new ArrayList<>(), this);
         rv_pending_rides.setAdapter(adapter);
 
         m_firebaseops_instance.get_user_as_obj(getActivity(), new UserDetailsCallback(){
@@ -89,6 +90,12 @@ public class PendingRidesFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     public void showPendingRides(List<String> ridesList){
