@@ -114,6 +114,17 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
                         }
                     });
 
+                    m_firebaseops_instance.updateUserRidesList(loggedInUserId, ride.getRideId(), new CreateRideInDBCallback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+
+                        }
+                    });
 
                 }
             });
@@ -150,6 +161,17 @@ public class AdapterDisplayRides extends RecyclerView.Adapter{
                         @Override
                         public void onFailure(String errorMessage) {
                             // Show an error message
+                        }
+                    });
+                    m_firebaseops_instance.updateUserRidesList(loggedInUserId, ride.getRideId(), new CreateRideInDBCallback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+
                         }
                     });
                 }

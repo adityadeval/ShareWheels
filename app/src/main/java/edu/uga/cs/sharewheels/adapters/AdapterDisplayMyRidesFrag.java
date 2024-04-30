@@ -43,7 +43,7 @@ public class AdapterDisplayMyRidesFrag extends RecyclerView.Adapter<RecyclerView
     public void updateData(ArrayList<Ride> newRides) {
         arrayList_rides.clear(); // Clear the existing data
         arrayList_rides.addAll(newRides); // Add all new data
-        Log.d("AdapterDisplayRides", "Contents of arrayList_rides: " + arrayList_rides);
+        Log.d("AdapterDisplayMyRidesFrag", "Contents of arrayList_rides: " + arrayList_rides);
         notifyDataSetChanged(); // Notify the adapter that the data has changed
     }
 
@@ -157,7 +157,7 @@ public class AdapterDisplayMyRidesFrag extends RecyclerView.Adapter<RecyclerView
             activeRidesHolder.button_complete_ride.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("AdapterDisplayRides", "button_complete_ride " );
+                    Log.d("AdapterDisplayMyRidesFrag", "button_complete_ride " );
 
 
                     if(loggedInUserId.equals(ride.getRiderID())){

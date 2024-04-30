@@ -316,7 +316,7 @@ public class FirebaseOps {
     // involved in.
     // We give this function the userID whose ridesList we want to update, and the rideId is the one we want to add into
     // the user's ridesList.
-    private void updateUserRidesList(String userId, String rideId, CreateRideInDBCallback callback) {
+    public void updateUserRidesList(String userId, String rideId, CreateRideInDBCallback callback) {
         // Here currentUserRef would be the child node for currently logged in user, present inside root node "Users".
         DatabaseReference currentUserRef = users_node_ref.child(userId);
 

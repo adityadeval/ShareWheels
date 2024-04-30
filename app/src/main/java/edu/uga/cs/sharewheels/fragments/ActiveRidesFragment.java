@@ -66,7 +66,6 @@ public class ActiveRidesFragment extends Fragment {
             @Override
             public void onUserDetailsFetched(User user) {
                 Log.d("User ID fetched", user.getUserID());
-                Log.d("Rides List of user: ", user.getRidesList().toString());
                 showActiveRides(user.getRidesList());
             }
 
