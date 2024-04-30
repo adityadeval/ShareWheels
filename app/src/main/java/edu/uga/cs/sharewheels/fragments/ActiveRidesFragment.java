@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +52,7 @@ public class ActiveRidesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("ActiveRidesFragment","Entering");
 
         // Initialize RecyclerView
         rv_active_rides = view.findViewById(R.id.rv_active_rides);
@@ -75,6 +78,9 @@ public class ActiveRidesFragment extends Fragment {
 
     }
 
+    public void ride_complete_success() {
+        Snackbar.make(getView(), "Ride is completed Successfully, Your points is updated", Snackbar.LENGTH_SHORT).show();
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -86,6 +92,7 @@ public class ActiveRidesFragment extends Fragment {
 
     }
     public void showActiveRides(List<String> ridesList){
+        Log.d("ActiveRidesFragment","Entering showActiveRides");
 
         m_firebaseops_instance.fetchUserRides(ridesList, new GetAllRidesFromDBCallback() {
 

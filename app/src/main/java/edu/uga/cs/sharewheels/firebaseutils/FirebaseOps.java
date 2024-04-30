@@ -250,10 +250,12 @@ public class FirebaseOps {
 
     public void fetchUserRides(List<String> rideIds, GetAllRidesFromDBCallback callback) {
         ArrayList<Ride> fetched_rides = new ArrayList<>();
-
+        int count = rideIds.size();
         for (String rideId : rideIds) {
+            count--;
             if (rideId != null && !rideId.isEmpty()) {
                 Log.d("FireBaseOps.fetchUserRides()", "Fetching data for rideID: " + rideId);
+                int finalCount = count;
                 rides_node_ref.child(rideId).addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
@@ -261,12 +263,12 @@ public class FirebaseOps {
                         Ride ride = snapshot.getValue(Ride.class);
                         if (ride != null) {
                             fetched_rides.add(ride);
-                            Log.d("FireBaseOps.fetchUserRides()", "fetched_rides array :" + fetched_rides.size());
                         }
-                        Log.d("FireBaseOps.fetchUserRides()", "rideIds.size is :" + rideIds.size());
-                        int ride_count = (int) (rideIds.stream().filter(Objects::nonNull).filter(id -> !id.isEmpty()).count() - 1);
-                        if (fetched_rides.size() == ride_count) { // Ensure all rides are fetched before calling onSuccess
-                            Log.d("FireBaseOps.fetchUserRides()", "Inside second if ");
+                        int ride_count = (int) (rideIds.stream().filter(Objects::nonNull).filter(id -> !id.isEmpty()).count());
+                        Log.d("FireBaseOps.fetchUserRides()", "fetched_rides.size() :" + fetched_rides.size());
+                        Log.d("FireBaseOps.fetchUserRides()", "ride_count:" + ride_count);
+                        if (finalCount == 0) { // Ensure all rides are fetched before calling onSuccess
+                            Log.d("FireBaseOps.fetchUserRides()", "Inside second if, fetched_rides: "+fetched_rides);
                             callback.onRideDataReceived(fetched_rides);
                         }
                     }

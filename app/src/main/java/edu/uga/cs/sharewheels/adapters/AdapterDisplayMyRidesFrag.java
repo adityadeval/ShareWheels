@@ -22,6 +22,7 @@ import edu.uga.cs.sharewheels.datamodels.Ride;
 import edu.uga.cs.sharewheels.firebaseutils.CreateRideInDBCallback;
 import edu.uga.cs.sharewheels.firebaseutils.DeleteRideCallBack;
 import edu.uga.cs.sharewheels.firebaseutils.FirebaseOps;
+import edu.uga.cs.sharewheels.fragments.ActiveRidesFragment;
 import edu.uga.cs.sharewheels.fragments.PendingRidesFragment;
 
 public class AdapterDisplayMyRidesFrag extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
@@ -156,6 +157,8 @@ public class AdapterDisplayMyRidesFrag extends RecyclerView.Adapter<RecyclerView
             activeRidesHolder.button_complete_ride.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("AdapterDisplayRides", "button_complete_ride " );
+
 
                     if(loggedInUserId.equals(ride.getRiderID())){
                         ride.setRiderCompletionFlag(true);
@@ -163,7 +166,7 @@ public class AdapterDisplayMyRidesFrag extends RecyclerView.Adapter<RecyclerView
                         ride.setDriverCompletionFlag(true);
                     }
 
-                    ((DriverActivity) context).ride_request_accepted_success();
+                    ((ActiveRidesFragment) fragment).ride_complete_success();
                     m_firebaseops_instance.acceptRide(ride, new CreateRideInDBCallback() {
                         @Override
                         public void onSuccess() {
